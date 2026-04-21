@@ -1,1 +1,1 @@
-gcp_project = "my-gcp-project"
+gcp_project = "itp4121-gcp-project"
