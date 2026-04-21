@@ -1,28 +1,21 @@
-variable "azure_subscription_id" {
-  type      = string
-  sensitive = true
-}
-variable "azure_tenant_id" {
-  type      = string
-  sensitive = true
-}
-variable "azure_client_id" {
-  type      = string
-  sensitive = true
-}
-variable "azure_client_secret" {
-  type      = string
-  sensitive = true
+variable "azure_region" {
+  description = "Azure region"
+  type        = string
+  default     = "eastasia"
 }
 
-variable "gcp_project_id" {
-  type = string
-}
 variable "gcp_region" {
-  type    = string
-  default = "asia-east1"
+  description = "GCP region"
+  type        = string
+  default     = "asia-east1"
 }
-variable "azure_region" {
+
+variable "gcp_project" {
+  description = "GCP Project ID"
+  type        = string
+}
+
+variable "cluster_name" {
   type    = string
-  default = "East Asia"
+  default = "itp4121-single"
 }
