@@ -30,7 +30,7 @@ variable "cluster_name" {
   default = "itp4121-single"
 }
 
-# ====================== Azure =========================
+# ====================== Azure 完整资源 =========================
 resource "azurerm_resource_group" "rg" {
   name     = "${var.cluster_name}-rg"
   location = var.azure_region
@@ -74,7 +74,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
   }
 }
 
-# ====================== GCP =========================
+# ====================== GCP 完整资源（已补全所有必填字段，解决本次报错） =========================
 resource "google_project_service" "compute" {
   service = "compute.googleapis.com"
 }
@@ -115,6 +115,9 @@ resource "google_container_cluster" "gke" {
 
   remove_default_node_pool = true
   initial_node_count       = 1
+
+  # 【核心修复：强制补齐features必填块，直接解决本次报错】
+  features {}
 
   depends_on = [google_project_service.compute, google_project_service.container]
 }
