@@ -17,12 +17,13 @@ variable "cluster_name" {
   default = "itp4121-single"
 }
 
-# ====================== Azure 完整全部资源（100%语法原生稳定，无任何报错） =========================
+# Azure 资源组
 resource "azurerm_resource_group" "rg" {
   name     = "${var.cluster_name}-rg"
   location = var.azure_region
 }
 
+# Azure VPC网络
 resource "azurerm_virtual_network" "vnet" {
   name                = "${var.cluster_name}-vnet"
   address_space       = ["10.0.0.0/16"]
@@ -30,6 +31,7 @@ resource "azurerm_virtual_network" "vnet" {
   resource_group_name = azurerm_resource_group.rg.name
 }
 
+# Azure 子网1
 resource "azurerm_subnet" "private1" {
   name                 = "private-subnet-1"
   resource_group_name  = azurerm_resource_group.rg.name
@@ -37,6 +39,7 @@ resource "azurerm_subnet" "private1" {
   address_prefixes     = ["10.0.1.0/24"]
 }
 
+# Azure 子网2
 resource "azurerm_subnet" "private2" {
   name                 = "private-subnet-2"
   resource_group_name  = azurerm_resource_group.rg.name
@@ -44,6 +47,7 @@ resource "azurerm_subnet" "private2" {
   address_prefixes     = ["10.0.2.0/24"]
 }
 
+# Azure AKS Kubernetes集群
 resource "azurerm_kubernetes_cluster" "aks" {
   name                = "${var.cluster_name}-aks"
   location            = azurerm_resource_group.rg.location
